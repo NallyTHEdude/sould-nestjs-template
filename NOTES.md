@@ -72,26 +72,28 @@
 
 ---
 
-# _Middlewares_ 
+# _Middlewares_
 
 1. Middlewares run before request reaches route handler.
 2. Useful for logging and global processing
-2. Create a middleware using `nest g middleware middleware/{middleware_name} --flat`
-2. Set the middleware in the `app.module.ts` by:
- ```
-   export class AppModule implements NestModule {
-      configure(consumer: MiddlewareConsumer){
-         consumer.apply(<middleware_name>).forRoutes(<controller_of_this_middleware>)
-      }
-   }
- ```
+3. Create a middleware using `nest g middleware middleware/{middleware_name} --flat`
+4. Set the middleware in the `app.module.ts` by:
 
- ---
+```
+  export class AppModule implements NestModule {
+     configure(consumer: MiddlewareConsumer){
+        consumer.apply(<middleware_name>).forRoutes(<controller_of_this_middleware>)
+     }
+  }
+```
+
+---
 
 # _Guards_
+
 1. Guards run after middleware and before route handler
 2. Create guards using `nest g guard guards/{guard_name} --flat`
 3. Guards are used to determine if the request should go to controller or throw an error (return boolean value)
 4. Can guards globally using `app.useGlobalGuards(<guard_name>)` in app.module.ts
 5. Can also use guards for specific routes by adding `@UseGuards(<guard_name>)` just before the route in controller.
-6. Can also use guards on the entire controller by adding `@UseGuards(<guard_name>)` on the top before any routes in the controller class. 
+6. Can also use guards on the entire controller by adding `@UseGuards(<guard_name>)` on the top before any routes in the controller class.
