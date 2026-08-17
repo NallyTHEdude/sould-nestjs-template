@@ -16,7 +16,7 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return "Welcome to SoulD backend service"', () => {
-      expect(appController.getHello()).toBe('Welcome to SoulD backend service');
+      expect(appController.greet()).toBe('Welcome to SoulD backend service');
     });
   });
 });
