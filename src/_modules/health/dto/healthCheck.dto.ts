@@ -1,6 +1,6 @@
 import { IsDateString, IsNotEmpty, IsString } from 'class-validator';
-
-export class HealthCheckResponseDto {
+import { HealthCheckResponse } from '@/types/Health';
+export class HealthCheckResponseDto implements Partial<HealthCheckResponse> {
   @IsNotEmpty()
   @IsString()
   status!: 'OK';

@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import type { HealthCheckResponseDto } from './dto/healthCheck.dto';
+import { HealthCheckResponseDto } from './dto/healthCheck.dto';
 import { HealthService } from './health.service';
 import { SkipThrottle } from '@nestjs/throttler';
 

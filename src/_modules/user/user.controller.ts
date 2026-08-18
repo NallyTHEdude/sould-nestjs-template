@@ -5,11 +5,9 @@ import {
   Param,
   ParseIntPipe,
   Post,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import type { User } from 'generated/prisma/client';
-import type { CreateUserDto } from './dto/createUser.dto';
+import { CreateUserDto } from './dto/createUser.dto';
 import { UserService } from './user.service';
 
 @Controller('/user')
@@ -27,7 +25,6 @@ export class UserController {
   }
 
   @Get(':id')
-  @UsePipes(ValidationPipe)
   async getUserById(@Param('id', ParseIntPipe) id: number): Promise<User> {
     return this.userService.getUserById(id);
   }
