@@ -4,18 +4,24 @@ import { UserModule } from './_modules/user/user.module';
 import { HealthModule } from './_modules/health/health.module';
 import { DatabaseModule } from './database/database.module';
 import { LoggerModule } from './logger/logger.module';
+import { APP_GUARD } from '@nestjs/core';
+
+// rate limiting configuration
+const rateLimitConfig = {
+  throttlers: [
+    {
+      ttl: 60000, // 1 minute
+      limit: 30, // 30 requests per minute
+    },
+  ],
+};
+
+// app module that imports all other modules and sets up rate limiting
 @Module({
   imports: [
     LoggerModule,
     DatabaseModule,
-    ThrottlerModule.forRoot({
-      throttlers: [
-        {
-          ttl: 60000, // 1 minute
-          limit: 30, // 30 requests per minute
-        },
-      ],
-    }),
+    ThrottlerModule.forRoot(rateLimitConfig),
     UserModule,
     HealthModule,
   ],
@@ -23,7 +29,7 @@ import { LoggerModule } from './logger/logger.module';
   controllers: [],
   providers: [
     {
-      provide: 'APP_GUARD',
+      provide: APP_GUARD,
       useClass: ThrottlerGuard,
     },
   ],
