@@ -1,11 +1,25 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@/app.module';
 import config from '@/config';
-import { appMiddleware } from '@/app';
+import helmet from 'helmet';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  appMiddleware(app);
+  const app = await NestFactory.create(AppModule, { bufferLogs: true });
+
+  // Global API prefix
+  const globalPrefix = '/api';
+  app.setGlobalPrefix(globalPrefix);
+
+  // Security middleware
+  app.use(helmet());
+  if (config.USE_CORS) {
+    app.enableCors({
+      origin: config.CORS_ORIGIN,
+      credentials: config.USE_COOKIES,
+    });
+  }
+
+  // Listen on the specified port
   await app.listen(config.PORT);
 }
 
