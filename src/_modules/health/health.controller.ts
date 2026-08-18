@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import type { HealthCheckResponseDTO } from './dto/healthCheckDTO';
+import type { HealthCheckResponseDto } from './dto/healthCheck.dto';
 import { HealthService } from './health.service';
 
 @Controller('/health')
@@ -7,7 +7,7 @@ export class HealthController {
   constructor(private readonly healthService: HealthService) {}
 
   @Get('')
-  checkHealth(): Promise<HealthCheckResponseDTO> {
+  checkHealth(): Promise<HealthCheckResponseDto> {
     return this.healthService.checkHealth();
   }
 }

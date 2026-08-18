@@ -1,6 +1,7 @@
 import { DatabaseService } from '@/database/database.service';
 import { LoggerService } from '@/logger/logger.service';
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { HealthCheckResponseDto } from './dto/healthCheck.dto';
 
 @Injectable()
 export class HealthService {
@@ -9,11 +10,7 @@ export class HealthService {
     private readonly databaseService: DatabaseService,
   ) {}
 
-  async checkHealth(): Promise<{
-    status: 'OK';
-    timestamp: string;
-    message: string;
-  }> {
+  async checkHealth(): Promise<HealthCheckResponseDto> {
     try {
       await this.databaseService.$queryRaw`SELECT 1`;
       return {
