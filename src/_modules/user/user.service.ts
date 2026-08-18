@@ -7,11 +7,11 @@ import { CreateUserDto } from './dto/createUser.dto';
 export class UserService {
   constructor(private readonly db: DatabaseService) {}
 
-  async createUser(dto: CreateUserDto): Promise<User> {
+  async createUser(createUserDto: CreateUserDto): Promise<User> {
     return this.db.user.create({
       data: {
-        email: dto.email,
-        name: dto.name,
+        email: createUserDto.email,
+        name: createUserDto.name,
       },
     });
   }

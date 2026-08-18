@@ -1,5 +1,5 @@
-export interface HealthCheckResponseDto {
-  status: 'OK';
-  timestamp: string;
-  message: string;
+export class HealthCheckResponseDto {
+  status!: 'OK';
+  timestamp!: string;
+  message!: string;
 }
