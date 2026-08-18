@@ -1,7 +1,7 @@
 import { DatabaseService } from '@/database/database.service';
-import { Injectable } from '@nestjs/common';
-import { CreateUserDTO } from './dto/createUserDTO';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { User } from 'generated/prisma/client';
+import { CreateUserDTO } from './dto/createUser.dto';
 
 @Injectable()
 export class UserService {
@@ -20,11 +20,18 @@ export class UserService {
     return this.db.user.findMany();
   }
 
-  async getUserById(id: number): Promise<User | null> {
-    return this.db.user.findUnique({
+  async getUserById(id: number): Promise<User> {
+    const user = await this.db.user.findUnique({
       where: {
         id,
       },
     });
+    if (!user) {
+      throw new HttpException(
+        `User with id ${id} not found`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    return user;
   }
 }

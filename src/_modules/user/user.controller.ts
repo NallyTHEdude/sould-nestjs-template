@@ -5,13 +5,10 @@ import {
   Param,
   ParseIntPipe,
   Post,
-  HttpException,
-  HttpStatus,
 } from '@nestjs/common';
-import type { Request, Response } from 'express';
-import { UserService } from './user.service';
-import type { CreateUserDTO } from './dto/createUserDTO';
 import type { User } from 'generated/prisma/client';
+import type { CreateUserDTO } from './dto/createUser.dto';
+import { UserService } from './user.service';
 
 @Controller('/user')
 export class UserController {
@@ -28,15 +25,7 @@ export class UserController {
   }
 
   @Get(':id')
-  async getUserById(
-    @Param('id', ParseIntPipe) id: number,
-  ): Promise<User | null> {
-    const user: User | null = await this.userService.getUserById(id);
-    if (!user)
-      throw new HttpException(
-        `User with id ${id} not found`,
-        HttpStatus.NOT_FOUND,
-      );
-    return user;
+  async getUserById(@Param('id', ParseIntPipe) id: number): Promise<User> {
+    return this.userService.getUserById(id);
   }
 }
