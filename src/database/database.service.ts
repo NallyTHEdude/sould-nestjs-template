@@ -10,7 +10,6 @@ export class DatabaseService
   implements OnModuleInit, OnModuleDestroy
 {
   constructor() {
-    // FIXME: fix the eslint problem
     const pool = new Pool({ connectionString: config.DATABASE_URL });
     const adapter = new PrismaPg(pool);
     super({ adapter });
