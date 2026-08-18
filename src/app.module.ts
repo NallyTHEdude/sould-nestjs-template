@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { UserModule } from './_modules/user/user.module';
+import { HealthModule } from './_modules/health/health.module';
 import { DatabaseModule } from './database/database.module';
 import { LoggerModule } from './logger/logger.module';
 @Module({
   imports: [
     LoggerModule,
     DatabaseModule,
-    UserModule,
     ThrottlerModule.forRoot({
       throttlers: [
         {
@@ -16,7 +16,8 @@ import { LoggerModule } from './logger/logger.module';
         },
       ],
     }),
-    LoggerModule,
+    UserModule,
+    HealthModule,
   ],
 
   controllers: [],
