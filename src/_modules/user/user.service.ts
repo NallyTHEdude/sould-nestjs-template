@@ -19,4 +19,12 @@ export class UserService {
   async getAllUsers(): Promise<User[]> {
     return this.db.user.findMany();
   }
+
+  async getUserById(id: number): Promise<User | null> {
+    return this.db.user.findUnique({
+      where: {
+        id,
+      },
+    });
+  }
 }
