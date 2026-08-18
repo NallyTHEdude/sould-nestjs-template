@@ -15,4 +15,8 @@ export class UserService {
       },
     });
   }
+
+  async getAllUsers(): Promise<User[]> {
+    return this.db.user.findMany();
+  }
 }
