@@ -7,7 +7,7 @@ import {
   Post,
 } from '@nestjs/common';
 import type { User } from 'generated/prisma/client';
-import type { CreateUserDTO } from './dto/createUser.dto';
+import type { CreateUserDto } from './dto/createUser.dto';
 import { UserService } from './user.service';
 
 @Controller('/user')
@@ -15,7 +15,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('/create')
-  createUser(@Body() body: CreateUserDTO): Promise<User> {
+  createUser(@Body() body: CreateUserDto): Promise<User> {
     return this.userService.createUser(body);
   }
 

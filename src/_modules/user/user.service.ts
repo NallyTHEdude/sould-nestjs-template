@@ -1,13 +1,13 @@
 import { DatabaseService } from '@/database/database.service';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { User } from 'generated/prisma/client';
-import { CreateUserDTO } from './dto/createUser.dto';
+import { CreateUserDto } from './dto/createUser.dto';
 
 @Injectable()
 export class UserService {
   constructor(private readonly db: DatabaseService) {}
 
-  async createUser(dto: CreateUserDTO): Promise<User> {
+  async createUser(dto: CreateUserDto): Promise<User> {
     return this.db.user.create({
       data: {
         email: dto.email,
